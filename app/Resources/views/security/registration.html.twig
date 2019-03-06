@@ -1,0 +1,301 @@
+{% extends 'base.html.twig' %}
+
+
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+
+    <style>
+		.prs_upcom_video_img_cont_over{
+			position:absolute;
+			bottom: 0%;
+		    left: 0%;
+		    right: 0%;
+			z-index:1;
+			text-align:center;
+	
+		    background: -webkit-linear-gradient(rgba(255,255,255,0) 0%, rgba(212,212,212,0) 17%, rgba(3,3,3,1) 99%, rgba(0,0,0,1) 100%);
+
+		    background: -o-linear-gradient(rgba(255,255,255,0) 0%, rgba(212,212,212,0) 17%, rgba(3,3,3,1) 99%, rgba(0,0,0,1) 100%);
+
+		    background: linear-gradient(rgba(255,255,255,0) 0%, rgba(212,212,212,0) 17%, rgba(3,3,3,1) 99%, rgba(0,0,0,1) 100%);
+
+		    padding: 10px 20px 20px 20px;
+		
+		}
+
+		.prs_upcom_video_img_cont_over h2{
+			font-size:22px;
+			font-weight:bold;
+			color:#ffffff;
+			text-transform:uppercase;
+			padding-top:40px;
+			padding-bottom:10px;
+			display:inline-block;
+		    line-height: 1.1;
+		    pointer-events: none;
+		}
+
+
+		body.dragenter .dropper{
+			border: 2px dashed #00a7d0;
+		}
+
+	    .custom_overlay{
+	        position: absolute;
+	        top: 0%;
+	        right: 0%;
+	        left: 0%;
+	        bottom: 0%;
+	        background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(212,212,212,0) 17%, rgba(3,3,3,1) 99%, rgba(0,0,0,1) 100%);
+	        background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(212,212,212,0) 17%,rgba(3,3,3,1) 99%,rgba(0,0,0,1) 100%);
+	        background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(212,212,212,0) 17%,rgba(3,3,3,1) 99%,rgba(0,0,0,1) 100%);
+	    }
+
+	    
+	    #vignette-portrait{
+	        height: 360px;
+	        width: 270px;
+	        background-color: #f6f6f6;
+	        overflow: hidden;
+	        background: url("{{ asset('/img/avatar-profil.png') }}") no-repeat left top / cover;
+	    }
+
+	    .hide{
+	    	display: none !important;
+	    }
+
+    </style>
+{% endblock %}
+
+
+{% block body %}
+
+    {{ include("main-menu.html.twig") }}
+    
+    <main>
+		<div id="hero_register">
+			<div class="container margin_120_95">			
+				<div class="row">
+					<div class="col-lg-6">
+						<h1>It's time to find you!</h1>
+						<p class="lead">Te pri adhuc simul. No eros errem mea. Diam mandamus has ad. Invenire senserit ad has, has ei quis iudico, ad mei nonumes periculis.</p>
+						<div class="box_feat_2">
+							<i class="pe-7s-map-2"></i>
+							<h3>Let patients to Find you!</h3>
+							<p>Ut nam graece accumsan cotidieque. Has voluptua vivendum accusamus cu. Ut per assueverit temporibus dissentiet.</p>
+						</div>
+						<div class="box_feat_2">
+							<i class="pe-7s-date"></i>
+							<h3>Easly manage Bookings</h3>
+							<p>Has voluptua vivendum accusamus cu. Ut per assueverit temporibus dissentiet. Eum no atqui putant democritum, velit nusquam sententiae vis no.</p>
+						</div>
+						<div class="box_feat_2">
+							<i class="pe-7s-phone"></i>
+							<h3>Instantly via Mobile</h3>
+							<p>Eos eu epicuri eleifend suavitate, te primis placerat suavitate his. Nam ut dico intellegat reprehendunt, everti audiam diceret in pri, id has clita consequat suscipiantur.</p>
+						</div>
+					</div>
+					<!-- /col -->
+					<div class="col-lg-5 ml-auto">
+						<div class="box_form">
+
+							{% for notice in app.flashes('notice-success') %}
+				                <div class="p-4">
+				                    <div class="alert alert-info">
+				                        
+				                        <h4><i class="icon fa fa-check"></i> {{ "Félicitation"|trans({},"registration") }}!</h4>
+				                        
+				                        {{ 'Votre inscription à bien été enregistrée, Bienvenu chez Allo-Docteur.'|trans({},'registration') }}
+
+				                    </div>
+				                </div>
+				            {% else %}
+								{{ form_start(form) }}
+
+									{{ form_errors(form) }}
+
+									<div class="row">
+
+										{% if app.request.attributes.get('type') == 'doctor' %}
+											<div class="col-md-6 ">
+												{{ form_row(form.user.firstname,{'label':false,'attr':{'placeholder':'Nom'}}) }}
+											</div>
+
+											<div class="col-md-6">
+												<div class="form-group">
+													{{ form_row(form.user.lastname,{'label':false,'attr':{'placeholder':'Prénom'}}) }}
+												</div>
+											</div>
+										{% else %}
+											<div class="col-md-12">
+												{{ form_row(form.user.firstname,{'label':false,'attr':{'placeholder':'Nom du centre de santé'}}) }}
+											</div>
+										{% endif %}
+									</div>
+
+									<div class="row">
+										{% if app.request.attributes.get('type') == 'doctor' %}
+											<div class="col-md-12">
+												{{ form_row(form.user.profileLinkedin,{'label':false,'attr':{'placeholder':'Lien linkedin'}}) }}
+											</div>
+										{% else %}
+											<div class="col-md-6 ">
+												{{ form_row(form.user.profileFacebook,{'label':false,'attr':{'placeholder':'Lien facebook'}}) }}
+											</div>
+
+											<div class="col-md-6">
+												<div class="form-group">
+													{{ form_row(form.user.profileLinkedin,{'label':false,'attr':{'placeholder':'Lien linkedin'}}) }}
+												</div>
+											</div>
+										{% endif %}
+									</div>
+
+									<!-- /row -->
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												{{ form_row(form.user.phone,{'label':false,'attr':{'placeholder':'Téléphone'}}) }}
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												{{ form_row(form.user.email,{'label':false,'attr':{'placeholder':'Email'}}) }}
+											</div>
+										</div>
+									</div>
+
+									<div class="row program-resources">
+									    <div class="col-md-12 text-center">
+									        {{ form_label(form.user.image) }}
+									        {{ form_errors(form.user.image) }}
+
+									        <br>
+
+									        <div style="display:inline-block;position:relative;" class="dropper">
+									            {{ form_widget(form.user.image) }}
+
+									            <div class="dropper-target" id="vignette-portrait" >
+									            	
+									            </div>
+
+									            <div class="prs_upcom_video_img_cont_over">
+									                <h2>Image à charger 270x360</h2>
+									                <button type="button" class="btn btn-danger trigger-file">Choisir...</button>
+
+									                <button  type="button" class="btn btn-danger reset-file">Annuler</button>
+									            </div>
+									        </div>
+									    </div>
+									</div>
+									
+
+									<hr>
+
+									<div class="row">
+									    <div class="col-md-12 has-collection has-collection-multiple-fields">
+
+									        {{ form_label(form.user.specializations) }}
+
+									        <div class="form-group sortable">
+									           
+									            {{ form_errors(form.user.specializations) }}
+									            {{ form_widget(form.user.specializations) }}
+
+									            <a href="" class="collection-add">
+									                <i class="fa fa-plus"></i> <small>ajouter</small>
+									            </a>
+									        </div> 
+									    </div>  
+									</div>
+									
+
+									{% if app.request.attributes.get('type') == 'doctor' %}
+										<!-- /row -->
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													{{ form_row(form.doctorType,{'label':false,'placeholder':'Grade'}) }}
+												</div>
+											</div>
+
+											<div class="col-md-6">
+												<div class="form-group">
+													{{ form_row(form.job,{'label':false,'placeholder':'Fonction'}) }}
+												</div>
+											</div>
+										</div>
+									{% endif %}
+
+									<!-- /row -->
+									<div class="row">
+										<div class="col-md-12">
+											<div class="form-group">
+												{{ form_row(form.user.city,{'label':false,'placeholder':'Zone d\'intervention'}) }}
+											</div>
+										</div>
+										
+									</div>
+
+																		
+									<!-- /row -->
+									{#<div class="row">
+										<div class="col-md-12">
+											<div class="form-group">
+												{{ form_row(form.user.password.first,{'label':false,'attr':{'placeholder':'Password'}}) }}
+											</div>
+										</div>
+									</div>
+
+									<div class="row">
+										
+										<div class="col-md-12">
+											<div class="form-group">
+												{{ form_row(form.user.password.second,{'label':false,'attr':{'placeholder':'Password confirmation'}}) }}
+											</div>
+										</div>
+									</div>#}
+									
+									<p class="text-center add_top_15">
+										<input type="submit" class="btn_1" value="S'enregistrer">
+									</p>
+
+									{#<div class="text-center">
+										<small>
+											Ut nam graece accumsan cotidieque. Has voluptua vivendum accusamus cu. Ut per assueverit temporibus dissentiet.
+										</small>
+									</div>#}
+
+								{{ form_end(form) }}
+							{% endfor %}
+						</div>
+						<!-- /box_form -->
+					</div>
+					<!-- /col -->
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /hero_register -->
+	</main>
+
+{% endblock %}
+
+
+{% block javascripts %}
+
+	{{ parent() }}
+
+	{% javascripts 
+        'js/admin/manager.js' 
+        'js/registration/manager.js' 
+        'js/registration/index.js' 
+    %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+{% endblock %}

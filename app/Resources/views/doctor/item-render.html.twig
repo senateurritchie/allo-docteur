@@ -1,0 +1,68 @@
+{% for item in data %}
+    <div class="strip_list wow fadeIn data-item" data-id="{{ item.id }}">
+        <a href="#0" class="wish_bt"></a>
+        <figure>
+            <a href="{{ path('doctor_index',{'slug':item.user.slug}) }}">
+
+                 {% if item.user.image %}
+                    <img alt="{{ item.user.username|lower|title }}" class="doctor-image" src="{{ asset('upload/public/'~item.user.image) }}" >
+                {% else %}
+                    <img alt="{{ item.user.username|lower|title }}" class="doctor-image" src="{{ asset('img/avatar.png') }}">
+                {% endif %}
+
+            </a>
+        </figure>
+
+        <small>
+            {{ item.job.name|lower|title}} &mdash; {{ item.doctorType.name|lower|title}}      
+        </small>
+
+        <h3>
+            Dr. {{ item.user.username|lower|title }}
+        </h3>
+
+        <p>
+            Id placerat tacimates definitionem sea, prima quidam vim no. Duo nobis persecuti cuodo....
+        </p>
+
+        <div>
+            <small>Spécialités</small>
+            {% for s in item.user.specializations %}
+                <span class="badge badge-danger">
+                    {{ s.specialization.name }}
+                </span>
+            {% endfor %}
+        </div>
+
+
+        <ul>
+            <li>
+                <a href="#0" onclick="onHtmlClick('Doctors', 0)" class="btn_listing">
+                    View on Map
+                </a>
+            </li>
+
+            <li>
+                <a href="https://www.google.com/maps/dir//Assistance+–+Hôpitaux+De+Paris,+3+Avenue+Victoria,+75004+Paris,+Francia/@48.8606548,2.3348734,14z/data=!4m15!1m6!3m5!1s0x0:0xa6a9af76b1e2d899!2sAssistance+–+Hôpitaux+De+Paris!8m2!3d48.8568376!4d2.3504305!4m7!1m0!1m5!1m1!1s0x47e67031f8c20147:0xa6a9af76b1e2d899!2m2!1d2.3504327!2d48.8568361" target="_blank">
+                    Directions
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ path('doctor_index',{'slug':item.user.slug}) }}">
+                    Book now
+                </a>
+            </li>
+        </ul>
+    </div>
+{% else %}
+        
+    <div class="alert alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h4><i class="icon fa fa-warning"></i> Oops!</h4>
+        Aucune autre donnée disponible.
+        <br>
+        Veuillez réessayer
+    </div>
+           
+{% endfor %}

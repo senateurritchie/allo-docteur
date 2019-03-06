@@ -1,0 +1,352 @@
+{% extends 'base.html.twig' %}
+
+
+{% set route = app.request.attributes.get('_route') %}
+
+{% if not route  and app.request.attributes.has('_forwarded') %}
+    {% set route = app.request.attributes.get('_forwarded').get('_route') %}
+{% endif %}
+
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% stylesheets filter='cssrewrite' 
+        'css/date_picker.css'
+        'lib/owlcarousel/dist/assets/owl.carousel.min.css'
+        'lib/owlcarousel/dist/assets/owl.theme.default.min.css'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %} 
+
+    <style>
+        .strip_list figure img{
+            width: 80px;
+        }
+    </style>
+
+{% endblock %}
+
+
+{% block body %}
+
+    {{ include("main-menu.html.twig") }}
+    
+    <main class="theia-exception">
+        <div id="results">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4><strong>Showing 10</strong> of 140 results</h4>
+                    </div>
+                    <div class="col-md-6">
+                        <form class="search_bar_list" method="get">
+                            <input name="q" type="text" class="form-control" placeholder="Ex. Specialist, Name, Doctor..." value="{{ app.request.query.get('q') }}">
+                            <input type="submit" value="Search">
+                        </form>
+                    </div>
+                </div>
+                <!-- /row -->
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- /results -->
+
+        <div class="filters_listing">
+            <div class="container">
+                <ul class="clearfix">
+                    <li style="float:both">
+
+                        {{ form_start(form) }}
+                            <div class="row">
+                                <div class="col-12 col-sm-6 col-md-3">
+                                    <h6>Spécialité</h6>
+                                    {{ form_row(form.specialization,{'placeholder':'',label:false}) }}
+                                </div>
+
+                                <div class="col-12 col-sm-6 col-md-3">
+                                    <h6>Fonction</h6>
+                                    {{ form_row(form.job,{'placeholder':'',label:false}) }}
+                                </div>
+
+                                <div class="col-12 col-sm-6 col-md-3">
+                                    <h6>Ville</h6>
+                                    {{ form_row(form.city,{'placeholder':'',label:false}) }}
+                                </div>
+
+                                 <div class="col-12 col-sm-6 col-md-3">
+                                    <h6>Grade</h6>
+                                    {{ form_row(form.doctorType,{'placeholder':'',label:false}) }}
+                                </div>
+                            </div>
+
+                            <button class="btn btn-danger" type="submit">
+                                <i class="fa fa-search"></i> Recherche
+                            </button>
+
+                        {{ form_end(form) }}
+
+
+
+                        {#<h6>Type</h6>
+
+                        <div class="switch-field">
+                           
+                            <input type="radio" id="doctors" name="type_patient" value="doctors" 
+                                {% if route == 'doctor_index' %} checked {% endif %}
+                            >
+                            <label for="doctors">Doctors</label>
+                            <input type="radio" id="clinics" name="type_patient" value="clinics" 
+                                {% if route == 'clinic_index' %} checked {% endif %}
+                            >
+                            <label for="clinics">Clinics</label>
+                        </div>#}
+                    </li>
+                    {#<li>
+                        <h6>Layout</h6>
+                        <div class="layout_view">
+                            <a href="grid-list.html"><i class="icon-th"></i></a>
+                            <a href="#0" class="active"><i class="icon-th-list"></i></a>
+                            <a href="list-map.html"><i class="icon-map-1"></i></a>
+                        </div>
+                    </li>
+                    <li>
+                        <h6>Sort by</h6>
+                        <select name="orderby" class="selectbox">
+                        <option value="Closest">Closest</option>
+                        <option value="Best rated">Best rated</option>
+                        <option value="Men">Men</option>
+                        <option value="Women">Women</option>
+                        </select>
+                    </li>#}
+                </ul>
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- /filters -->
+        
+        <div class="container margin_60_35">
+            <div class="row">
+                <div class="col-lg-7">
+
+
+                    {{ include('doctor/item-render.html.twig') }}
+
+                    {#<div class="strip_list wow fadeIn">
+                        <a href="#0" class="wish_bt"></a>
+                        <figure>
+                            <a href="{{ path('doctor_index',{'slug':'cornfield-maxell'}) }}">
+                                <img src="{{ asset('img/doctor_listing_1.jpg') }}" alt="">
+                            </a>
+                        </figure>
+                        <small>Pediatrician</small>
+                        <h3>Dr. Cornfield</h3>
+                        <p>Id placerat tacimates definitionem sea, prima quidam vim no. Duo nobis persecuti cuodo....</p>
+                        <span class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i><i class="icon_star"></i> <small>(145)</small></span>
+                        <a href="badges.html" data-toggle="tooltip" data-placement="top" data-original-title="Badge Level" class="badge_list_1"><img src="{{ asset('img/badges/badge_1.svg') }}" width="15" height="15" alt=""></a>
+                        <ul>
+                            <li><a href="#0" onclick="onHtmlClick('Doctors', 0)" class="btn_listing">View on Map</a></li>
+                            <li><a href="https://www.google.com/maps/dir//Assistance+–+Hôpitaux+De+Paris,+3+Avenue+Victoria,+75004+Paris,+Francia/@48.8606548,2.3348734,14z/data=!4m15!1m6!3m5!1s0x0:0xa6a9af76b1e2d899!2sAssistance+–+Hôpitaux+De+Paris!8m2!3d48.8568376!4d2.3504305!4m7!1m0!1m5!1m1!1s0x47e67031f8c20147:0xa6a9af76b1e2d899!2m2!1d2.3504327!2d48.8568361" target="_blank">Directions</a></li>
+                            <li><a href="{{ path('doctor_index',{'slug':'cornfield-maxell'}) }}">Book now</a></li>
+                        </ul>
+                    </div>
+                    <!-- /strip_list -->
+
+                    <div class="strip_list wow fadeIn">
+                        <a href="#0" class="wish_bt"></a>
+                        <figure>
+                            <a href="{{ path('doctor_index',{'slug':'cornfield-maxell'}) }}">
+                                <img src="{{ asset('img/doctor_listing_2.jpg') }}" alt="">
+                            </a>
+                        </figure>
+                        <small>Psicologist</small>
+                        <h3>Dr. Shoemaker</h3>
+                        <p>Id placerat tacimates definitionem sea, prima quidam vim no. Duo nobis persecuti cuodo....</p>
+                        <span class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i><i class="icon_star"></i> <small>(145)</small></span>
+                        <a href="badges.html" data-toggle="tooltip" data-placement="top" data-original-title="Badge Level" class="badge_list_1"><img src="{{ asset('img/badges/badge_2.svg') }}" width="15" height="15" alt=""></a>
+                        <ul>
+                            <li><a href="#0" onclick="onHtmlClick('Doctors', 1)" class="btn_listing">View on Map</a></li>
+                            <li><a href="https://www.google.com/maps/dir//Assistance+–+Hôpitaux+De+Paris,+3+Avenue+Victoria,+75004+Paris,+Francia/@48.8606548,2.3348734,14z/data=!4m15!1m6!3m5!1s0x0:0xa6a9af76b1e2d899!2sAssistance+–+Hôpitaux+De+Paris!8m2!3d48.8568376!4d2.3504305!4m7!1m0!1m5!1m1!1s0x47e67031f8c20147:0xa6a9af76b1e2d899!2m2!1d2.3504327!2d48.8568361" target="_blank">Directions</a></li>
+                            <li><a href="{{ path('doctor_index',{'slug':'cornfield-maxell'}) }}">Book now</a></li>
+                        </ul>
+                    </div>
+                    <!-- /strip_list -->
+
+                    <div class="strip_list wow fadeIn">
+                        <a href="#0" class="wish_bt"></a>
+                        <figure>
+                            <a href="{{ path('doctor_index',{'slug':'cornfield-maxell'}) }}">
+                                <img src="{{ asset('img/doctor_listing_3.jpg') }}" alt="">
+                            </a>
+                        </figure>
+                        <small>Pediatrician</small>
+                        <h3>Dr. Lachinet</h3>
+                        <p>Id placerat tacimates definitionem sea, prima quidam vim no. Duo nobis persecuti cuodo....</p>
+                        <span class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i><i class="icon_star"></i> <small>(145)</small></span>
+                        <a href="badges.html" data-toggle="tooltip" data-placement="top" data-original-title="Badge Level" class="badge_list_1"><img src="{{ asset('img/badges/badge_3.svg') }}" width="15" height="15" alt=""></a>
+                        <ul>
+                            <li><a href="#0" onclick="onHtmlClick('Doctors', 2)" class="btn_listing">View on Map</a></li>
+                            <li><a href="https://www.google.com/maps/dir//Assistance+–+Hôpitaux+De+Paris,+3+Avenue+Victoria,+75004+Paris,+Francia/@48.8606548,2.3348734,14z/data=!4m15!1m6!3m5!1s0x0:0xa6a9af76b1e2d899!2sAssistance+–+Hôpitaux+De+Paris!8m2!3d48.8568376!4d2.3504305!4m7!1m0!1m5!1m1!1s0x47e67031f8c20147:0xa6a9af76b1e2d899!2m2!1d2.3504327!2d48.8568361" target="_blank">Directions</a></li>
+                            <li><a href="{{ path('doctor_index',{'slug':'cornfield-maxell'}) }}">Book now</a></li>
+                        </ul>
+                    </div>
+                    <!-- /strip_list -->
+
+                    <div class="strip_list wow fadeIn">
+                        <a href="#0" class="wish_bt"></a>
+                        <figure>
+                            <a href="{{ path('doctor_index',{'slug':'cornfield-maxell'}) }}">
+                                <img src="{{ asset('img/doctor_listing_4.jpg') }}" alt="">
+                            </a>
+                        </figure>
+                        <small>Pediatrician</small>
+                        <h3>Dr. Rainwater</h3>
+                        <p>Id placerat tacimates definitionem sea, prima quidam vim no. Duo nobis persecuti cuodo....</p>
+                        <span class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i><i class="icon_star"></i> <small>(145)</small></span>
+                        <a href="badges.html" data-toggle="tooltip" data-placement="top" data-original-title="Badge Level" class="badge_list_1"><img src="{{ asset('img/badges/badge_4.svg') }}" width="15" height="15" alt=""></a>
+                        <ul>
+                            <li><a href="#0" onclick="onHtmlClick('Doctors', 1)" class="btn_listing">View on Map</a></li>
+                            <li><a href="https://www.google.com/maps/dir//Assistance+–+Hôpitaux+De+Paris,+3+Avenue+Victoria,+75004+Paris,+Francia/@48.8606548,2.3348734,14z/data=!4m15!1m6!3m5!1s0x0:0xa6a9af76b1e2d899!2sAssistance+–+Hôpitaux+De+Paris!8m2!3d48.8568376!4d2.3504305!4m7!1m0!1m5!1m1!1s0x47e67031f8c20147:0xa6a9af76b1e2d899!2m2!1d2.3504327!2d48.8568361" target="_blank">Directions</a></li>
+                            <li><a href="{{ path('doctor_index',{'slug':'cornfield-maxell'}) }}">Book now</a></li>
+                        </ul>
+                    </div>
+                    <!-- /strip_list -->
+
+                    <div class="strip_list wow fadeIn">
+                        <a href="#0" class="wish_bt"></a>
+                        <figure>
+                            <a href="{{ path('doctor_index',{'slug':'cornfield-maxell'}) }}">
+                                <img src="{{ asset('img/doctor_listing_5.jpg') }}" alt="">
+                            </a>
+                        </figure>
+                        <small>Psicologist</small>
+                        <h3>Dr. Manzone</h3>
+                        <p>Id placerat tacimates definitionem sea, prima quidam vim no. Duo nobis persecuti cuodo....</p>
+                        <span class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i><i class="icon_star"></i> <small>(145)</small></span>
+                        <a href="badges.html" data-toggle="tooltip" data-placement="top" data-original-title="Badge Level" class="badge_list_1"><img src="{{ asset('img/badges/badge_4.svg') }}" width="15" height="15" alt=""></a>
+                        <ul>
+                            <li><a href="#0" onclick="onHtmlClick('Doctors', 1)" class="btn_listing">View on Map</a></li>
+                            <li><a href="https://www.google.com/maps/dir//Assistance+–+Hôpitaux+De+Paris,+3+Avenue+Victoria,+75004+Paris,+Francia/@48.8606548,2.3348734,14z/data=!4m15!1m6!3m5!1s0x0:0xa6a9af76b1e2d899!2sAssistance+–+Hôpitaux+De+Paris!8m2!3d48.8568376!4d2.3504305!4m7!1m0!1m5!1m1!1s0x47e67031f8c20147:0xa6a9af76b1e2d899!2m2!1d2.3504327!2d48.8568361" target="_blank">Directions</a></li>
+                            <li><a href="{{ path('doctor_index',{'slug':'cornfield-maxell'}) }}">Book now</a></li>
+                        </ul>
+                    </div>
+                    <!-- /strip_list -->#}
+                    
+                    <nav aria-label="" class="add_top_20">
+                        <ul class="pagination pagination-sm">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1">Previous</a>
+                            </li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- /pagination -->
+                </div>
+                <!-- /col -->
+                
+                <aside class="col-lg-5" id="sidebar">
+                    <div style="margin-bottom:20px" class="ads-container has-carousel">
+
+                        <div class="owl-carousel">
+                            <div class="ads-item" style="position:relative">
+                                <img alt="procrea" src="{{ asset('ads/procrea.jpg')}}" />
+
+                                <div class="custom-adst--name" style="text-transform:uppercase;margin-top:10px;color:#90949c">
+                                    Clinic Procrea
+                                </div>
+
+                                <div class="custom-adst--detail text-truncate">
+                                    <strong>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis doloribus impedit aut, numquam, beatae cum voluptate dicta incidunt tempora, eius dolorum maiores, voluptates a! Magni, incidunt, suscipit. Mollitia, vel nemo.</strong>
+                                </div>
+                            </div>
+
+                            <div class="ads-item" style="position:relative">
+                                <img alt="Gerblé" src="{{ asset('ads/diet.jpg')}}" />
+
+                                <div class="custom-adst--name" style="text-transform:uppercase;margin-top:10px;color:#90949c">
+                                    Gerblé
+                                </div>
+
+                                <div class="custom-adst--detail text-truncate">
+                                    <strong>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis doloribus impedit aut, numquam, beatae cum voluptate dicta incidunt tempora, eius dolorum maiores, voluptates a! Magni, incidunt, suscipit. Mollitia, vel nemo.</strong>
+                                </div>
+                            </div>
+
+                            <div class="ads-item" style="position:relative">
+                                <img alt="Great Skin" src="{{ asset('ads/great-skin.jpg')}}" />
+
+                                <div class="custom-adst--name" style="text-transform:uppercase;margin-top:10px;color:#90949c">
+                                    Great Skin
+                                </div>
+
+                                <div class="custom-adst--detail text-truncate">
+                                    <strong>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis doloribus impedit aut, numquam, beatae cum voluptate dicta incidunt tempora, eius dolorum maiores, voluptates a! Magni, incidunt, suscipit. Mollitia, vel nemo.</strong>
+                                </div>
+                            </div>
+
+                            
+
+                        </div>
+                    </div>
+
+                    {#<div id="map_listing" class="normal_list">
+                    </div>#}
+                </aside>
+                <!-- /aside -->
+                
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </main>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+
+    {% javascripts 
+        'lib/owlcarousel/dist/owl.carousel.min.js' 
+    %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+
+    <script>
+        jQuery(document).ready(function($){
+
+            $("header:first").removeClass('header_sticky').addClass('static');
+
+            $(".owl-carousel").owlCarousel({
+                loop:true,
+                items:1,
+                autoplay:true,
+                autoplayTimeout:5000,
+                autoplayHoverPause:true
+            });
+        });
+    </script>
+
+   {# <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFJv-Gz2nkIXlLGQlQYn9OPLsjkRdMmvM"></script>
+   
+   
+   
+   {% javascripts 
+       'js/markerclusterer.js'
+       'js/map_listing.js'
+       'js/infobox.js'                
+   %}
+       <script src="{{ asset_url }}"></script>
+   {% endjavascripts %} #}
+
+{% endblock %}

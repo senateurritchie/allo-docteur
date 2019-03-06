@@ -1,0 +1,183 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Translatable;
+use Symfony\Component\Serializer\Annotation\Groups;
+
+/**
+ * DoctorType
+ *
+ * @ORM\Table(name="doctor_type")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\DoctorTypeRepository")
+ */
+class DoctorType
+{
+    /**
+    * @var int
+    *
+    * @Groups({"group1"})
+    * @ORM\Column(name="id", type="integer")
+    * @ORM\Id
+    * @ORM\GeneratedValue(strategy="AUTO")
+    */
+    private $id;
+
+    /**
+    * @var string
+    *
+    * @Groups({"group1"})
+    * @Gedmo\Translatable
+    * @ORM\Column(name="name", type="string", length=100, unique=true)
+    */
+    private $name;
+
+    /**
+    * @var string
+    *
+    * @Groups({"group1"})
+    * @Gedmo\Translatable
+    * @Gedmo\Slug(fields={"name"})
+    * @ORM\Column(name="slug", type="string", length=100, unique=true)
+    */
+    private $slug;
+
+    /**
+    * @var int
+    *
+    * @Groups({"group1"})
+    * @ORM\Column(name="nbr", type="integer")
+    */
+    private $nbr;
+
+    /**
+    * @Groups({"group2"})
+    * @ORM\OneToMany(targetEntity="AppBundle\Entity\Doctor", mappedBy="doctorType")
+    */
+    private $doctors;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return DoctorType
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return DoctorType
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Set nbr
+     *
+     * @param integer $nbr
+     *
+     * @return DoctorType
+     */
+    public function setNbr($nbr)
+    {
+        $this->nbr = $nbr;
+
+        return $this;
+    }
+
+    /**
+     * Get nbr
+     *
+     * @return int
+     */
+    public function getNbr()
+    {
+        return $this->nbr;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->doctors = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add doctor
+     *
+     * @param \AppBundle\Entity\Doctor $doctor
+     *
+     * @return DoctorType
+     */
+    public function addDoctor(\AppBundle\Entity\Doctor $doctor){
+        $this->doctors[] = $doctor;
+
+        return $this;
+    }
+
+    /**
+     * Remove doctor
+     *
+     * @param \AppBundle\Entity\Doctor $doctor
+     */
+    public function removeDoctor(\AppBundle\Entity\Doctor $doctor)
+    {
+        $this->doctors->removeElement($doctor);
+    }
+
+    /**
+     * Get doctors
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDoctors()
+    {
+        return $this->doctors;
+    }
+}

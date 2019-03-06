@@ -1,0 +1,222 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block body %}
+
+    {{ include("main-menu.html.twig") }}
+    
+    <main>
+        <div class="hero_home version_1">
+            <div class="content">
+                <h3>Besoin d'aide ?</h3>
+                <p>
+                    Retrouvez un spécialiste ou une clinique.
+                </p>
+                <form method="get" action="{{ path('search_index') }}">
+                    <div id="custom-search-input">
+                        <div class="input-group">
+                            <input type="text" class=" search-query" placeholder="Ex. Nom, Spécialité ...." name="q">
+                            <input type="submit" class="btn_search" value="Recherche">
+                        </div>
+                        <ul>
+                            <li>
+                                <input type="radio" id="doctor" name="type" value="doctor" checked>
+                                <label for="doctor">Docteur</label>
+                            </li>
+                            <li>
+                                <input type="radio" id="clinic" name="type" value="clinic">
+                                <label for="clinic">Clinique</label>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+
+        <!-- <div class="bg_color_1">
+            <div class="container margin_120_95">
+                <div class="main_title">
+                    <h2>Most Viewed doctors</h2>
+                    <p>Usu habeo equidem sanctus no. Suas summo id sed, erat erant oporteat cu pri.</p>
+                </div>
+                <div id="reccomended" class="owl-carousel owl-theme">
+                    <div class="item">
+                        <a href="{{ path('doctor_index',{'slug':'judicael-kodou-desire'}) }}">
+                            <div class="views"><i class="icon-eye-7"></i>140</div>
+                            <div class="title">
+                                <h4>Dr. Julia Holmes<em>Pediatrician - Cardiologist</em></h4>
+                            </div><img src="{{ asset('img/doctor_1_carousel.jpg') }}" alt="">
+                        </a>
+                    </div>
+                    <div class="item">
+                        <a href="{{ path('doctor_index',{'slug':'judicael-kodou-desire'}) }}">
+                            <div class="views"><i class="icon-eye-7"></i>120</div>
+                            <div class="title">
+                                <h4>Dr. Julia Holmes<em>Pediatrician</em></h4>
+                            </div><img src="{{ asset('img/doctor_2_carousel.jpg') }}" alt="">
+                        </a>
+                    </div>
+                    <div class="item">
+                        <a href="{{ path('doctor_index',{'slug':'judicael-kodou-desire'}) }}">
+                            <div class="views"><i class="icon-eye-7"></i>115</div>
+                            <div class="title">
+                                <h4>Dr. Julia Holmes<em>Pediatrician</em></h4>
+                            </div><img src="{{ asset('img/doctor_3_carousel.jpg') }}" alt="">
+                        </a>
+                    </div>
+                    <div class="item">
+                        <a href="{{ path('doctor_index',{'slug':'judicael-kodou-desire'}) }}">
+                            <div class="views"><i class="icon-eye-7"></i>98</div>
+                            <div class="title">
+                                <h4>Dr. Julia Holmes<em>Pediatrician</em></h4>
+                            </div><img src="{{ asset('img/doctor_4_carousel.jpg') }}" alt="">
+                        </a>
+                    </div>
+                    <div class="item">
+                        <a href="{{ path('doctor_index',{'slug':'judicael-kodou-desire'}) }}">
+                            <div class="views"><i class="icon-eye-7"></i>98</div>
+                            <div class="title">
+                                <h4>Dr. Julia Holmes<em>Pediatrician</em></h4>
+                            </div><img src="{{ asset('img/doctor_5_carousel.jpg') }}" alt="">
+                        </a>
+                    </div>
+                </div>
+                 /carousel 
+            </div>
+            /container -->
+        </div>
+        <!-- /white_bg -->
+
+        <div class="container margin_120_95">
+            <div class="main_title">
+                <h2>Rechercher par spécialités</h2>
+                <p>Vous pourrez effectuer une recherche rapide en cliquant sur l'icône représentant la spécialité pour laquelle vous êtes interessés.</p>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <a href="list.html" class="box_cat_home">
+                        <i class="icon-info-4"></i>
+                        <img src="{{ asset('img/icon_cat_1.svg') }}" width="60" height="60" alt="">
+                        <h3>Soins Primaire</h3>
+                        <ul class="clearfix">
+                            <li><strong>124</strong>Docteurs</li>
+                            <li><strong>60</strong>Cliniques</li>
+                        </ul>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <a href="list.html" class="box_cat_home">
+                        <i class="icon-info-4"></i>
+                        <img src="{{ asset('img/icon_cat_2.svg') }}" width="60" height="60" alt="">
+                        <h3>Cardiologie</h3>
+                        <ul class="clearfix">
+                            <li><strong>124</strong>Docteurs</li>
+                            <li><strong>60</strong>Cliniques</li>
+                        </ul>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <a href="list.html" class="box_cat_home">
+                        <i class="icon-info-4"></i>
+                        <img src="{{ asset('img/icon_cat_3.svg') }}" width="60" height="60" alt="">
+                        <h3>IRM</h3>
+                        <ul class="clearfix">
+                            <li><strong>124</strong>Docteurs</li>
+                            <li><strong>60</strong>Cliniques</li>
+                        </ul>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <a href="list.html" class="box_cat_home">
+                        <i class="icon-info-4"></i>
+                        <img src="{{ asset('img/icon_cat_4.svg') }}" width="60" height="60" alt="">
+                        <h3>Test de sang</h3>
+                        <ul class="clearfix">
+                            <li><strong>124</strong>Docteurs</li>
+                            <li><strong>60</strong>Cliniques</li>
+                        </ul>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <a href="list.html" class="box_cat_home">
+                        <i class="icon-info-4"></i>
+                        <img src="{{ asset('img/icon_cat_7.svg') }}" width="60" height="60" alt="">
+                        <h3>Laboratoires</h3>
+                        <ul class="clearfix">
+                            <li><strong>124</strong>Docteurs</li>
+                            <li><strong>60</strong>Cliniques</li>
+                        </ul>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <a href="list.html" class="box_cat_home">
+                        <i class="icon-info-4"></i>
+                        <img src="{{ asset('img/icon_cat_5.svg') }}" width="60" height="60" alt="">
+                        <h3>Dentistes</h3>
+                        <ul class="clearfix">
+                            <li><strong>124</strong>Docteurs</li>
+                            <li><strong>60</strong>Cliniques</li>
+                        </ul>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <a href="list.html" class="box_cat_home">
+                        <i class="icon-info-4"></i>
+                        <img src="{{ asset('img/icon_cat_6.svg') }}" width="60" height="60" alt="">
+                        <h3>Rayon X</h3>
+                        <ul class="clearfix">
+                            <li><strong>124</strong>Docteurs</li>
+                            <li><strong>60</strong>Cliniques</li>
+                        </ul>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <a href="list.html" class="box_cat_home">
+                        <i class="icon-info-4"></i>
+                        <img src="{{ asset('img/icon_cat_8.svg') }}" width="60" height="60" alt="">
+                        <h3>Psychologie</h3>
+                        <ul class="clearfix">
+                            <li><strong>124</strong>Docteurs</li>
+                            <li><strong>60</strong>Cliniques</li>
+                        </ul>
+                    </a>
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+
+        <div class="cta_subscribe">
+            <div class="container-fluid h-100">
+                <div class="row h-100 justify-content-center align-items-center">
+                    <div class="col-md-6 p-0">
+                        <div class="block_1">
+                            <figure><img src="img/doctors_icon.svg" alt=""></figure>
+                            <h3>Êtes-vous un docteur ?</h3>
+                            <p>Le service vous permet d'obtenir une visibilité maximale en ligne et de gérer les rendez-vous et les contacts provenant du site, de manière simple et rapide par l'établissement de santé dans lequel vous intervenez.</p>
+                            <a href="{{ path('security_registration',{'type':'doctor'}) }}" class="btn_1">Voir plus</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 p-0">
+                        <div class="block_2">
+                            <figure><img src="img/patient_icon.svg" alt=""></figure>
+                            <h3>Êtes-vous une clinique ?</h3>
+                            <p>Choisir un spécialiste n'a jamais été aussi rapide! Vous pouvez filtrer les résultats de la recherche par lieu et spécialisation médicale et réserver un examen médical en ligne en fonction d'un spécialiste.</p>
+                            <a href="{{ path('security_registration',{'type':'clinic'}) }}" class="btn_1">Voir plus</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- /row -->
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- /cta_subscribe -->
+    </main>
+
+{% endblock %}
+

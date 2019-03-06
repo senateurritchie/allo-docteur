@@ -1,0 +1,43 @@
+imports:
+    - { resource: config.yml }
+
+#doctrine:
+#    orm:
+#        metadata_cache_driver: apc
+#        result_cache_driver: apc
+#        query_cache_driver: apc
+
+monolog:
+    handlers:
+        main:
+            type: fingers_crossed
+            action_level: error
+            handler: nested
+        nested:
+            type: stream
+            path: '%kernel.logs_dir%/%kernel.environment%.log'
+            level: debug
+        console:
+            type: console
+            process_psr_3_messages: false
+
+parameters:
+
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: allo_docteur
+    database_user: root
+    database_password: null
+    
+    mailer_transport: gmail
+    mailer_host: null
+    mailer_user: zakeszako@gmail.com
+    mailer_password: '@@ssZ@ck284520M@bintou'
+
+    admin:
+        department: 'webmaster'
+        email: 'zakeszako@yahoo.fr'
+    app.site: 
+        name:   'Allô Docteur'
+        email:  'webmaster@allodocteur.ci'
+        url:    'http://allodocteur.local'
