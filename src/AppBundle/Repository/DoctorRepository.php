@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Repository;
+use Doctrine\ORM\QueryBuilder;
 
 use AppBundle\Entity\DoctorSpecialization;
 use AppBundle\Entity\Doctor;
@@ -41,6 +42,11 @@ class DoctorRepository extends \Doctrine\ORM\EntityRepository
         // recherche par doctorType
         if(@$params["grade"]){
             $this->whereGrade($qb,@$params["grade"]);
+        }
+
+        // recherche par user_slug
+        if(@$params["slug"]){
+            $this->whereSlug($qb,@$params["slug"]);
         }
 
         // recherche par job
@@ -161,6 +167,11 @@ class DoctorRepository extends \Doctrine\ORM\EntityRepository
             ->setParameter("q","%$value%");
         }
 	}
+
+	public function whereSlug(QueryBuilder $qb,$value){
+        $qb->andWhere($qb->expr()->eq("u.slug",":user_slug"))
+        ->setParameter("user_slug",$value);
+    }
 
     public function whereState(QueryBuilder $qb,$value){
         $qb->andWhere($qb->expr()->eq("u.state",":state"))

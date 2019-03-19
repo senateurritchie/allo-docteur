@@ -57,20 +57,19 @@ class SearchController extends Controller{
 
         if($slug){
 
-            return $this->render('doctor/single.html.twig',array(
-           
-            ));
-
-            if(!($data = $rep->findOneBy(array("slug"=>$slug)))){
+            if(!($data = $rep->search(["slug"=>$slug]))) {
                 throw $this->createNotFoundException("Le sujet recherché est introuvable");
             }
 
             return $this->render('doctor/single.html.twig',array(
-                "data"=>$data,
-            )); // 
+                "data"=>$data[0]
+            ));
         }
 
-        $form = $this->createForm($subject_type,$subject,["use_for_mode"=>"index_search_page"]);
+        $form = $this->createForm($subject_type,$subject,[
+            "use_for_mode"=>"index_search_page",
+            "method"=>"GET"
+        ]);
         $params = $request->query->all();
 
         $data = $rep->search($params,$limit,$offset);

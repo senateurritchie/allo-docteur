@@ -1220,8 +1220,10 @@ class User implements UserInterface, EquatableInterface, \Serializable
      */
     public function addSpecialization(\AppBundle\Entity\DoctorSpecialization $specialization)
     {
-        $this->specializations[] = $specialization;
-
+        if (!$this->specializations->contains($specialization)) {
+            $this->specializations[] = $specialization;
+            $specialization->setUser($this);
+        }
         return $this;
     }
 
@@ -1232,7 +1234,13 @@ class User implements UserInterface, EquatableInterface, \Serializable
      */
     public function removeSpecialization(\AppBundle\Entity\DoctorSpecialization $specialization)
     {
-        $this->specializations->removeElement($specialization);
+        if ($this->specializations->contains($specialization)) {
+            $this->specializations->removeElement($specialization);
+            if ($specializations->getClinic() === $this) {
+                $specialization->setUser(null);
+            }
+        }
+        return $this;
     }
 
     /**

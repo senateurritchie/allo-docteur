@@ -42,12 +42,18 @@
                                 <div class="row">
                                     <div class="col-lg-5 col-md-4">
                                         <figure>
-                                            <img src="{{ asset('img/doctor_listing_1.jpg') }}" alt="" class="img-fluid">
+
+                                            {% if data.user.image %}
+                                                <img alt="{{ data.user.username|lower|title }}" class="img-fluid" src="{{ asset('upload/public/'~data.user.image) }}" >
+                                            {% else %}
+                                                <img alt="{{ data.user.username|lower|title }}" class="img-fluid" src="{{ asset('img/avatar.png') }}">
+                                            {% endif %}
+
                                         </figure>
                                     </div>
                                     <div class="col-lg-7 col-md-8">
-                                        <small>Primary care - Internist</small>
-                                        <h1>DR. Julia Jhones</h1>
+                                        <small>{{ data.job.name|lower|title }} - {{ data.doctorType.name|lower|title }}</small>
+                                        <h1>DR. {{ data.user.username|lower|title }}</h1>
                                         <span class="rating">
                                             <i class="icon_star voted"></i>
                                             <i class="icon_star voted"></i>

@@ -25,14 +25,14 @@ class Clinic
 
     /**
     * @Groups({"group1"})
-    * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="clinics")
+    * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", cascade={"persist","remove"}, inversedBy="clinics")
     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
     */
     private $user;
 
     /**
     * @Groups({"group2"})
-    * @ORM\OneToMany(targetEntity="AppBundle\Entity\ClinicDoctor", mappedBy="clinic")
+    * @ORM\OneToMany(targetEntity="AppBundle\Entity\ClinicDoctor", mappedBy="clinic", cascade={"persist","remove"})
     */
     private $doctors;
 
@@ -87,8 +87,10 @@ class Clinic
      */
     public function addDoctor(\AppBundle\Entity\ClinicDoctor $doctor)
     {
-        $this->doctors[] = $doctor;
-
+        if (!$this->doctors->contains($doctor)) {
+            $this->doctors[] = $doctor;
+            $doctor->setClinic($this);
+        }
         return $this;
     }
 
@@ -97,9 +99,14 @@ class Clinic
      *
      * @param \AppBundle\Entity\ClinicDoctor $doctor
      */
-    public function removeDoctor(\AppBundle\Entity\ClinicDoctor $doctor)
-    {
-        $this->doctors->removeElement($doctor);
+    public function removeDoctor(\AppBundle\Entity\ClinicDoctor $doctor){
+        if ($this->doctors->contains($doctor)) {
+            $this->doctors->removeElement($doctor);
+            if ($doctor->getClinic() === $this) {
+                $doctor->setClinic(null);
+            }
+        }
+        return $this;
     }
 
     /**
@@ -107,8 +114,7 @@ class Clinic
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getDoctors()
-    {
+    public function getDoctors(){
         return $this->doctors;
     }
 }

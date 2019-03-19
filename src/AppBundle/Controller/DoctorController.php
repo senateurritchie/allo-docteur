@@ -23,8 +23,8 @@ class DoctorController extends Controller{
     * @Route("/{slug}", name="index", requirements={"slug":"([\w-]+)?"})
     */
     public function indexAction(Request $request,$slug=null){
-        $query = array_merge($request->query->all(),["slug"=>$slug,"type"=>"doctor"]);
-        return $this->forward('AppBundle:Search:index',[],$query);
+        $query = array_merge($request->query->all(),["type"=>"doctor"]);
+        return $this->forward('AppBundle:Search:index',["slug"=>$slug],$query);
     }
 
     

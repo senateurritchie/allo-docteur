@@ -62,15 +62,25 @@
 
                         {{ form_start(form) }}
                             <div class="row">
+
+                                 {% if route == "clinic_index" %}
+                                    <div class="col-12 col-sm-6 col-md-3">
+                                        <h6>Centre de santé</h6>
+                                        {{ form_row(form.name,{label:false}) }}
+                                    </div>
+                                {% endif %}
+
                                 <div class="col-12 col-sm-6 col-md-3">
                                     <h6>Spécialité</h6>
                                     {{ form_row(form.specialization,{'placeholder':'',label:false}) }}
                                 </div>
 
-                                <div class="col-12 col-sm-6 col-md-3">
-                                    <h6>Fonction</h6>
-                                    {{ form_row(form.job,{'placeholder':'',label:false}) }}
-                                </div>
+                                {% if route == "doctor_index" %}
+                                    <div class="col-12 col-sm-6 col-md-3">
+                                        <h6>Fonction</h6>
+                                        {{ form_row(form.job,{'placeholder':'',label:false}) }}
+                                    </div>
+                                {% endif %}
 
                                 <div class="col-12 col-sm-6 col-md-3">
                                     <h6>Ville</h6>
@@ -78,14 +88,12 @@
                                 </div>
 
                                  <div class="col-12 col-sm-6 col-md-3">
-                                    <h6>Grade</h6>
-                                    {{ form_row(form.doctorType,{'placeholder':'',label:false}) }}
+                                    <h6>&nbsp;</h6>
+                                    <button class="btn btn-danger btn-block" type="submit">
+                                        <i class="fa fa-search"></i> Recherche
+                                    </button>
                                 </div>
                             </div>
-
-                            <button class="btn btn-danger" type="submit">
-                                <i class="fa fa-search"></i> Recherche
-                            </button>
 
                         {{ form_end(form) }}
 

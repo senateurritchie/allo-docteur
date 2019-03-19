@@ -79,6 +79,8 @@ class SecurityController extends Controller{
 
         if($form->isSubmitted() && $form->isValid()){
 
+
+
             $r = $em->getRepository(UserType::class);
 
             if($type == "doctor"){
@@ -91,12 +93,12 @@ class SecurityController extends Controller{
             $user->getUser()->setState('pending');
             $em->persist($user);
 
-            $specializations = $user->getUser()->getSpecializations();
-            if(count($specializations)){
+            //$specializations = $user->getUser()->getSpecializations();
+            /*if(count($specializations)){
                 foreach ($specializations as $el) {
                     $el->setUser($user->getUser());
                 }
-            }
+            }*/
             $em->flush();
 
             $this->addFlash("notice-success",1);

@@ -51,7 +51,7 @@ class Doctor
 
     /**
     * @Groups({"group2"})
-    * @ORM\OneToMany(targetEntity="AppBundle\Entity\ClinicDoctor", mappedBy="doctor")
+    * @ORM\OneToMany(targetEntity="AppBundle\Entity\ClinicDoctor", mappedBy="doctor", cascade={"persist","remove"})
     */
     private $clinics;
 
@@ -129,8 +129,10 @@ class Doctor
      */
     public function addClinic(\AppBundle\Entity\ClinicDoctor $clinic)
     {
-        $this->clinics[] = $clinic;
-
+        if (!$this->clinics->contains($clinic)) {
+            $this->clinics[] = $clinic;
+            $clinic->setDoctor($this);
+        }
         return $this;
     }
 
@@ -141,7 +143,13 @@ class Doctor
      */
     public function removeClinic(\AppBundle\Entity\ClinicDoctor $clinic)
     {
-        $this->clinics->removeElement($clinic);
+        if ($this->clinics->contains($clinic)) {
+            $this->clinics->removeElement($clinic);
+            if ($clinic->getDoctor() === $this) {
+                $clinic->setDoctor(null);
+            }
+        }
+        return $this;
     }
 
     /**
