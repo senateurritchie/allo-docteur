@@ -45,7 +45,6 @@ class SearchController extends Controller{
             break;
         }
 
-
         $rep = $em->getRepository($subject_class);
 
         $limit = intval($request->query->get('limit',20));

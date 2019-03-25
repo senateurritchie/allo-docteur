@@ -11,33 +11,37 @@
 			<div class="col-lg-3 col-md-4">
 				<h5>A Propos</h5>
 				<ul class="links">
-					<li><a href="">A Propos de nous</a></li>
-					<li><a href="">FAQ</a></li>
-					<li><a href="">Se Connecter</a></li>
-					<li><a href="">S'enregistrer</a></li>
+					<li>
+						<a href="{{ path("clinic_index") }}">
+							Cliniques
+						</a></li>
+					<li>
+						<a href="{{ path("doctor_index") }}">
+							Docteurs
+						</a>
+					</li>
 				</ul>
 			</div>
 			<div class="col-lg-3 col-md-4">
 				<h5>Liens utiles</h5>
 				<ul class="links">
-					<li><a href="">Docteurs</a></li>
-					<li><a href="">Cliniques</a></li>
-					<li><a href="">Specialités</a></li>
-					<li><a href="">Rejoins nous comme Docteur</a></li>
+					<li><a href="{{ path('security_registration',{'type':'clinic'}) }}">Rejoins nous comme Cliniqes/CHU</a></li>
+					<li><a href="{{ path('security_registration',{'type':'doctor'}) }}">Rejoins nous comme Docteur</a></li>
 				</ul>
 			</div>
 			<div class="col-lg-3 col-md-4">
 				<h5>Nos Contacts</h5>
 				<ul class="contacts">
+					<!--
 					<li>
 						<a href="tel://+22500000000">
 							<i class="icon_mobile"></i> +225 00 00 00 00
 						</a>
 					</li>
-
+					-->
 					<li>
 						<a href="mailto:info@allodocteur.ci">
-							<i class="icon_mail_alt"></i> help@allodocteur.ci
+							<i class="icon_mail_alt"></i> help@sosdocteur-ci.com
 						</a>
 					</li>
 				</ul>
@@ -46,9 +50,10 @@
 					<h5>Nous suivre</h5>
 					<ul>
 						<li><a href=""><i class="social_facebook"></i></a></li>
-						<li><a href=""><i class="social_twitter"></i></a></li>
-						<li><a href=""><i class="social_linkedin"></i></a></li>
+						<!--<li><a href=""><i class="social_twitter"></i></a></li>
 						<li><a href=""><i class="social_instagram"></i></a></li>
+						<li><a href=""><i class="social_linkedin"></i></a></li>-->
+						
 					</ul>
 				</div>
 			</div>
@@ -58,12 +63,12 @@
 		<div class="row">
 			<div class="col-md-8">
 				<ul id="additional_links">
-					<li><a href="">Conditions d'utilisation</a></li>
-					<li><a href="">Politique de confidentialité</a></li>
+					<!-- <li><a href="">Conditions d'utilisation</a></li>
+					<li><a href="">Politique de confidentialité</a></li> -->
 				</ul>
 			</div>
 			<div class="col-md-4">
-				<div id="copy">© 2019 Allô Docteur</div>
+				<div id="copy">© 2019 SOS Docteurs</div>
 			</div>
 		</div>
 	</div>

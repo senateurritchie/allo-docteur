@@ -19,17 +19,17 @@
                 <form method="get" action="{{ path('search_index') }}">
                     <div id="custom-search-input">
                         <div class="input-group">
-                            <input type="text" class=" search-query" placeholder="Ex. Nom, Spécialité ...." name="q">
+                            <input type="text" class=" search-query" placeholder="Ex. Nom, Spécialités ...." name="q">
                             <input type="submit" class="btn_search" value="Recherche">
                         </div>
                         <ul>
                             <li>
                                 <input type="radio" id="doctor" name="type" value="doctor" checked>
-                                <label for="doctor">Docteur</label>
+                                <label for="doctor">Docteurs</label>
                             </li>
                             <li>
                                 <input type="radio" id="clinic" name="type" value="clinic">
-                                <label for="clinic">Clinique</label>
+                                <label for="clinic">Cliniques</label>
                             </li>
                         </ul>
                     </div>
@@ -99,10 +99,10 @@
             </div>
             <div class="row">
                 <div class="col-lg-3 col-md-6">
-                    <a href="{{ path("doctor_index",{'specialization':'soins-primaire'}) }}" class="box_cat_home">
+                    <a href="{{ path("doctor_index",{'specialization':'medecine-interne-genérale'}) }}" class="box_cat_home">
                         <i class="icon-info-4"></i>
                         <img src="{{ asset('img/icon_cat_1.svg') }}" width="60" height="60" alt="">
-                        <h3>Soins Primaire</h3>
+                        <h3>Medecine générale</h3>
                         {#<ul class="clearfix">
                             <li><strong>124</strong>Docteurs</li>
                             <li><strong>60</strong>Cliniques</li>
@@ -132,28 +132,6 @@
                     </a>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <a href="{{ path("doctor_index",{'specialization':'hematologie'}) }}" class="box_cat_home">
-                        <i class="icon-info-4"></i>
-                        <img src="{{ asset('img/icon_cat_4.svg') }}" width="60" height="60" alt="">
-                        <h3>Hematologie</h3>
-                        {#<ul class="clearfix">
-                            <li><strong>124</strong>Docteurs</li>
-                            <li><strong>60</strong>Cliniques</li>
-                        </ul>#}
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <a href="{{ path("doctor_index",{'specialization':'Laboratoire'}) }}" class="box_cat_home">
-                        <i class="icon-info-4"></i>
-                        <img src="{{ asset('img/icon_cat_7.svg') }}" width="60" height="60" alt="">
-                        <h3>Laboratoires</h3>
-                        {#<ul class="clearfix">
-                            <li><strong>124</strong>Docteurs</li>
-                            <li><strong>60</strong>Cliniques</li>
-                        </ul>#}
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-6">
                     <a href="{{ path("doctor_index",{'specialization':'dentiste'}) }}" class="box_cat_home">
                         <i class="icon-info-4"></i>
                         <img src="{{ asset('img/icon_cat_5.svg') }}" width="60" height="60" alt="">
@@ -164,28 +142,7 @@
                         </ul>#}
                     </a>
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <a href="{{ path("doctor_index",{'specialization':'gynecologie'}) }}" class="box_cat_home">
-                        <i class="icon-info-4"></i>
-                        <img src="{{ asset('img/icon_cat_6.svg') }}" width="60" height="60" alt="">
-                        <h3>Gynecologie</h3>
-                        {#<ul class="clearfix">
-                            <li><strong>124</strong>Docteurs</li>
-                            <li><strong>60</strong>Cliniques</li>
-                        </ul>#}
-                    </a>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <a href="{{ path("doctor_index",{'specialization':'psychologie'}) }}" class="box_cat_home">
-                        <i class="icon-info-4"></i>
-                        <img src="{{ asset('img/icon_cat_8.svg') }}" width="60" height="60" alt="">
-                        <h3>Psychologie</h3>
-                        {#<ul class="clearfix">
-                            <li><strong>124</strong>Docteurs</li>
-                            <li><strong>60</strong>Cliniques</li>
-                        </ul>#}
-                    </a>
-                </div>
+
             </div>
             <!-- /row -->
         </div>
@@ -198,7 +155,7 @@
                         <div class="block_1">
                             <figure><img src="img/doctors_icon.svg" alt=""></figure>
                             <h3>Êtes-vous un docteur ?</h3>
-                            <p>Le service vous permet d'obtenir une visibilité maximale en ligne et de gérer les rendez-vous et les contacts provenant du site, de manière simple et rapide par l'établissement de santé dans lequel vous intervenez.</p>
+                            <p>Le service vous permet d'obtenir une visibilité maximale en ligne et de gérer les rendez-vous et les contacts provenant du site, de manière simple et rapide.</p>
                             <a href="{{ path('security_registration',{'type':'doctor'}) }}" class="btn_1">Voir plus</a>
                         </div>
                     </div>
@@ -206,7 +163,7 @@
                         <div class="block_2">
                             <figure><img src="img/patient_icon.svg" alt=""></figure>
                             <h3>Êtes-vous une clinique ?</h3>
-                            <p>Choisir un spécialiste n'a jamais été aussi rapide! Vous pouvez filtrer les résultats de la recherche par lieu et spécialisation médicale et réserver un examen médical en ligne en fonction d'un spécialiste.</p>
+                            <p>Choisir un établissement de santé n'a jamais été aussi rapide! Vous pouvez filtrer les résultats de la recherche par lieu et spécialisation médicale.</p>
                             <a href="{{ path('security_registration',{'type':'clinic'}) }}" class="btn_1">Voir plus</a>
                         </div>
                     </div>

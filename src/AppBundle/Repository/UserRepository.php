@@ -164,7 +164,7 @@ class UserRepository extends \Doctrine\ORM\EntityRepository implements UserLoade
         }
         else{
             $qb->andWhere(
-                "u.username LIKE :q",
+                "u.username LIKE :q"
             )
             ->setParameter("q","%$value%");
         }

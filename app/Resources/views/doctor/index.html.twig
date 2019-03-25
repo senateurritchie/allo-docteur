@@ -2,6 +2,7 @@
 
 
 {% set route = app.request.attributes.get('_route') %}
+{% set type = app.request.query.get('type') %}
 
 {% if not route  and app.request.attributes.has('_forwarded') %}
     {% set route = app.request.attributes.get('_forwarded').get('_route') %}
@@ -40,12 +41,19 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
-                        <h4><strong>Showing 10</strong> of 140 results</h4>
+                        <h4>
+                            Rechercher 
+                            {% if route == 'clinic_index' or type == "clinic" %} 
+                                une clinique 
+                            {% else %} 
+                                un docteur
+                            {% endif %}</h4>
                     </div>
                     <div class="col-md-6">
                         <form class="search_bar_list" method="get">
-                            <input name="q" type="text" class="form-control" placeholder="Ex. Specialist, Name, Doctor..." value="{{ app.request.query.get('q') }}">
-                            <input type="submit" value="Search">
+                            <input name="q" type="text" class="form-control" placeholder="Entrer le nom à rechercher ..." value="{{ app.request.query.get('q') }}">
+                            <input type="submit" value="Recherche">
+                            <input type="hidden" name="type" value="{{ type }}">
                         </form>
                     </div>
                 </div>
@@ -63,7 +71,7 @@
                         {{ form_start(form) }}
                             <div class="row">
 
-                                 {% if route == "clinic_index" %}
+                                {% if route == "clinic_index" or type == 'clinic' %}
                                     <div class="col-12 col-sm-6 col-md-3">
                                         <h6>Centre de santé</h6>
                                         {{ form_row(form.name,{label:false}) }}
@@ -75,7 +83,7 @@
                                     {{ form_row(form.specialization,{'placeholder':'',label:false}) }}
                                 </div>
 
-                                {% if route == "doctor_index" %}
+                                {% if route == "doctor_index" or type == 'doctor' %}
                                     <div class="col-12 col-sm-6 col-md-3">
                                         <h6>Fonction</h6>
                                         {{ form_row(form.job,{'placeholder':'',label:false}) }}
@@ -242,7 +250,7 @@
                         </ul>
                     </div>
                     <!-- /strip_list -->#}
-                    
+                    <!--
                     <nav aria-label="" class="add_top_20">
                         <ul class="pagination pagination-sm">
                             <li class="page-item disabled">
@@ -256,48 +264,51 @@
                             </li>
                         </ul>
                     </nav>
+                -->
                     <!-- /pagination -->
                 </div>
                 <!-- /col -->
                 
                 <aside class="col-lg-5" id="sidebar">
-                    <div style="margin-bottom:20px" class="ads-container has-carousel">
+                    <div style="margin-bottom:20px" class="madsm-container has-carousel">
 
                         <div class="owl-carousel">
-                            <div class="ads-item" style="position:relative">
-                                <img alt="procrea" src="{{ asset('ads/procrea.jpg')}}" />
+                            <div class="madsm-item" style="position:relative">
+                                <img alt="procrea" src="{{ asset('madsm/procrea.jpg')}}" />
 
-                                <div class="custom-adst--name" style="text-transform:uppercase;margin-top:10px;color:#90949c">
+                                <div class="custom-madsmt--name" style="text-transform:uppercase;margin-top:10px;color:#90949c">
                                     Clinic Procrea
                                 </div>
-
-                                <div class="custom-adst--detail text-truncate">
+                               
+                                {# <div class="custom-madsmt--detail text-truncate">
                                     <strong>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis doloribus impedit aut, numquam, beatae cum voluptate dicta incidunt tempora, eius dolorum maiores, voluptates a! Magni, incidunt, suscipit. Mollitia, vel nemo.</strong>
-                                </div>
+                                </div> #}
                             </div>
 
-                            <div class="ads-item" style="position:relative">
-                                <img alt="Gerblé" src="{{ asset('ads/diet.jpg')}}" />
+                            <div class="madsm-item" style="position:relative">
+                                <img alt="Gerblé" src="{{ asset('madsm/diet.jpg')}}" />
 
-                                <div class="custom-adst--name" style="text-transform:uppercase;margin-top:10px;color:#90949c">
+                                <div class="custom-madsmt--name" style="text-transform:uppercase;margin-top:10px;color:#90949c">
                                     Gerblé
                                 </div>
 
-                                <div class="custom-adst--detail text-truncate">
+                                
+                                {# <div class="custom-madsmt--detail text-truncate">
                                     <strong>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis doloribus impedit aut, numquam, beatae cum voluptate dicta incidunt tempora, eius dolorum maiores, voluptates a! Magni, incidunt, suscipit. Mollitia, vel nemo.</strong>
-                                </div>
+                                </div> #}
                             </div>
 
-                            <div class="ads-item" style="position:relative">
-                                <img alt="Great Skin" src="{{ asset('ads/great-skin.jpg')}}" />
+                            <div class="madsm-item" style="position:relative">
+                                <img alt="Great Skin" src="{{ asset('madsm/great-skin.jpg')}}" />
 
-                                <div class="custom-adst--name" style="text-transform:uppercase;margin-top:10px;color:#90949c">
+                                <div class="custom-madsmt--name" style="text-transform:uppercase;margin-top:10px;color:#90949c">
                                     Great Skin
                                 </div>
 
-                                <div class="custom-adst--detail text-truncate">
+                                
+                                {# <div class="custom-madsmt--detail text-truncate">
                                     <strong>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis doloribus impedit aut, numquam, beatae cum voluptate dicta incidunt tempora, eius dolorum maiores, voluptates a! Magni, incidunt, suscipit. Mollitia, vel nemo.</strong>
-                                </div>
+                                </div> #}
                             </div>
 
                             

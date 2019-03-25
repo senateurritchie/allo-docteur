@@ -10,7 +10,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * Specialization
  *
- * @ORM\Table(name="specialization", options={"comment":"les spécialités dans lesquelles un medecin ou clinique peut consulter"})
+ * @ORM\Table(name="specialization", options={"comment":"les spécialités dans lesquelles un medecin ou clinique peut consulter"},indexes={@ORM\Index(columns={"name"},flags={"fulltext"})})
  * @ORM\Entity(repositoryClass="AppBundle\Repository\SpecializationRepository")
  */
 class Specialization

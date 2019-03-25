@@ -61,21 +61,13 @@ class WebsiteMail
     /**
     * @var string
     *
-    * @Assert\Length(max=50)
-    * @ORM\Column(name="referer_message", type="string", length=50, nullable=true)
-    */
-    private $refererMessage;
-
-    /**
-    * @var string
-    *
     * @Assert\NotBlank(message="veuillez renseigner ce champs")
     * @Assert\Length(min=3, max=500)
     * @ORM\Column(name="message", type="string", length=500)
     */
     private $message;
 
-     /**
+    /**
     * @var boolean
     *
     * @ORM\Column(name="is_processed", type="boolean")
@@ -196,30 +188,6 @@ class WebsiteMail
     public function getSubject()
     {
         return $this->subject;
-    }
-
-    /**
-     * Set refererMessage
-     *
-     * @param string $refererMessage
-     *
-     * @return WebsiteMail
-     */
-    public function setRefererMessage($refererMessage)
-    {
-        $this->refererMessage = $refererMessage;
-
-        return $this;
-    }
-
-    /**
-     * Get refererMessage
-     *
-     * @return string
-     */
-    public function getRefererMessage()
-    {
-        return $this->refererMessage;
     }
 
     /**

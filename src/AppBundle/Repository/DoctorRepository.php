@@ -142,7 +142,7 @@ class DoctorRepository extends \Doctrine\ORM\EntityRepository
 	public function whereTerms(QueryBuilder $qb,$value){
         $terms_1 = $value;
 
-        if(@$this->myCurrentParams['_search_mode'] == "google"){
+        /*if(@$this->myCurrentParams['_search_mode'] == "google"){*/
 
   			$qb2 = $this->_em->createQueryBuilder();
 
@@ -156,16 +156,18 @@ class DoctorRepository extends \Doctrine\ORM\EntityRepository
             $qb->andWhere(
             	$qb->expr()->orX(
 	                "(MATCH_AGAINST(u.username, :q) > 0)",
-	                $qb->expr()->exists($qb2)
+	                $qb->expr()->exists($qb2),
+                    "u.username LIKE :q_like"
 	            ))
-            ->setParameter("q",$value);
-        }
+            ->setParameter("q",$value)
+            ->setParameter("q_like","%$value%");
+        /*}
         else{
             $qb->andWhere(
                 "u.username LIKE :q"
             )
             ->setParameter("q","%$value%");
-        }
+        }*/
 	}
 
 	public function whereSlug(QueryBuilder $qb,$value){

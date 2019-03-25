@@ -55,14 +55,6 @@ class DefaultController extends Controller{
 
 
     /**
-    * @Route("/nous-contacter/", name="contact_us")
-    */
-    public function contactUsAction(Request $request){
-        return $this->render('default/contact-us.html.twig');
-    }
-
-
-    /**
     * @Route("/conditions-generales-d-utilisation", name="cgu")
     */
     public function cguAction(){

@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block body %}
+
+    {{ include("main-menu.html.twig") }}
+    
+    <main>
+        <div id="map_contact"></div>
+        <!-- /map -->
+        
+        <div class="container margin_60_35">
+            <div class="row">
+                <aside class="col-lg-3 col-md-4">
+                    <div id="contact_info">
+                        <h3>Email à contacter</h3>
+                        <p>
+                            <i class="icon_mail_alt"></i> help@sosdocteur-ci.com
+                        </p>
+                       
+                        
+                    </div>
+                </aside>
+                <!--/aside -->
+                <div class=" col-lg-8 col-md-8 ml-auto">
+                    <div class="box_general">
+                        <h3>{{'Nous écrire'|trans({},'contact')}}</h3>
+
+                        <p>
+                            Votre requête sera traitée dans un délai de 24 heures.
+                        </p>
+                        <div>
+                            <div id="message-contact"></div>
+
+                            {{ form_start(form,{'attr':{'method':'POST',id:"contactform"}}) }}
+
+                                 {% for notice in app.flashes('notice-success') %}
+                                    <div class="alert alert-warning">
+                                        {{ 'mail.success'|trans({},'contact') }} !
+                                    </div>
+                                {% endfor %}
+
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6">
+                                         {{ form_row(form.firstname,{'attr':{id:"name_contact",'placeholder':'Prénoms'}}) }}
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        {{ form_row(form.lastname,{'attr':{id:"lastname_contact",'placeholder':'Nom'}}) }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6">
+                                        {{ form_row(form.email,{'attr':{id:"email_contact",'placeholder':'Email'}}) }}
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        {{ form_row(form.subject,{'attr':{id:"subject_contact",'placeholder':'Objet'}}) }}
+                                    
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        {{ form_widget(form.message,{'attr':{'data-limit':500,'id':'message_contact','placeholder':'Exprimez-vous'}}) }}
+                                    </div>
+                                </div>
+                                
+                                <input type="submit" value="Envoyer" class="btn_1 add_top_20" id="submit-contact">
+                            {{ form_end(form) }}
+                        </div>
+                        <!-- /col -->
+                    </div>
+                </div>
+                <!-- /col -->
+            </div>
+            <!-- End row -->
+        </div>
+        <!-- /container -->
+    </main>
+
+{% endblock %}
+
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFJv-Gz2nkIXlLGQlQYn9OPLsjkRdMmvM"></script>
+
+
+
+    {% javascripts 
+        'js/mapmarker.jquery.js'
+        'js/mapmarker_contacts_func.js'                
+    %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    
+
+{% endblock %}
+

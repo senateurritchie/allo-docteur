@@ -32,7 +32,7 @@
                             <ul class="clearfix">
                                 <li><a href="#section_1" class="active">General info</a></li>
                                 <li><a href="#section_2">Reviews</a></li>
-                                <li><a href="#sidebar">Booking</a></li>
+                                {#<li><a href="#sidebar">Booking</a></li>#}
                             </ul>
                         </div>
                     </nav>
@@ -67,20 +67,84 @@
                                             <li>854 Views</li>
                                             <li>124 Patients</li>
                                         </ul>
+
+                                        <ul class="specialization contacts">
+                                            <li>
+                                                <h6>Spécialité(s)</h6>
+
+                                                {% for s in data.user.specializations %}
+                                                    <span class="badge badge-info">
+                                                        {{ s.specialization.name }}
+                                                    </span>
+                                                {% endfor %}
+                                            </li>
+                                        </ul>
+
+                                        {% if data.user.userType.slug == 'doctor' %}
+                                            <ul class="clinics-area contacts">
+                                                <li>
+                                                    <h6>Centre(s) de santé</h6>
+                                                    {% for d in data.clinics %}
+                                                        <span class="badge badge-info">
+                                                            {{ d.clinic.user.username|lower|title }}
+                                                        </span>
+                                                    {% else %}
+                                                        <small style="font-weight:normal">
+                                                            pas disponible
+                                                        </small>
+                                                    {% endfor %}
+                                                </li>
+                                            </ul>
+                                        {% endif %}
+
                                         <ul class="contacts">
                                             <li>
-                                                <h6>Address</h6>
-                                                2726 Shinn Street, New York -
-                                                <a href="https://www.google.com/maps/dir//Assistance+–+Hôpitaux+De+Paris,+3+Avenue+Victoria,+75004+Paris,+Francia/@48.8606548,2.3348734,14z/data=!4m15!1m6!3m5!1s0x0:0xa6a9af76b1e2d899!2sAssistance+–+Hôpitaux+De+Paris!8m2!3d48.8568376!4d2.3504305!4m7!1m0!1m5!1m1!1s0x47e67031f8c20147:0xa6a9af76b1e2d899!2m2!1d2.3504327!2d48.8568361" target="_blank"> <strong>View on map</strong></a>
+                                                <h6>Téléphone</h6>
+                                                <a href="tel:{{ data.user.phone }}">
+                                                    <i class="fas fa-phone-square"></i> {{ data.user.phone }}
+                                                </a>
+                                               
                                             </li>
+                                        </ul>
+
+
+                                        <ul class="contacts">
                                             <li>
-                                                <h6>Phone</h6> <a href="tel://000434323342">+00043 4323342</a> - <a href="tel://000434323342">+00043 4323342</a></li>
+                                                {% if data.user.profileFacebook or data.user.profileLinkedin or data.user.profileTwitter%}
+                                                    <h6>Reseaux sociaux</h6>
+
+                                                    {% if data.user.profileFacebook %}
+                                                        <div>
+                                                            <a target="_blank" href="{{ data.user.profileFacebook}}">
+                                                                <i class="fab fa-facebook-square"></i> {{ data.user.profileFacebook}}
+                                                            </a>
+                                                        </div>
+                                                    {% endif %}
+
+                                                    {% if data.user.profileLinkedin %}
+                                                        <div>
+                                                            <a target="_blank" href="{{ data.user.profileLinkedin}}">
+                                                                <i class="fab fa-linkedin"></i> {{ data.user.profileLinkedin}}
+                                                            </a>
+                                                        </div>
+                                                    {% endif %}
+
+                                                    {% if data.user.profileTwitter %}
+                                                        <div>
+                                                            <a target="_blank" href="{{ data.user.profileTwitter }}">
+                                                                <i class="fab fa-twitter-square"></i> {{ data.user.profileTwitter }}
+                                                            </a>
+                                                        </div>
+                                                    {% endif %}
+
+                                                {% endif %}
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                             
-                            <hr>
+                            {#<hr>
                             
                             <!-- /profile -->
                             <div class="indent_title_in">
@@ -129,7 +193,7 @@
                                     <li><strong>New York Medical College</strong> - Master Internal Medicine</li>
                                 </ul>
                             </div>
-                            <!--  End wrapper indent -->
+                            <!--  End wrapper indent -->#}
 
                             <hr>
 
@@ -183,7 +247,7 @@
                     </div>
                     <!-- /box_general -->
 
-                    <div id="section_2">
+                    {#<div id="section_2">
                         <div class="box_general_3">
                             <div class="reviews-container">
                                 <div class="row">
@@ -310,7 +374,7 @@
                             <div class="text-right"><a href="submit-review.html" class="btn_1">Submit review</a></div>
                         </div>
                     </div>
-                    <!-- /section_2 -->
+                    <!-- /section_2 -->#}
                 </div>
                 <!-- /col -->
                 <aside class="col-xl-4 col-lg-4" id="sidebar">

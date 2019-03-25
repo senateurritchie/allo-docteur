@@ -2,7 +2,6 @@
 
 namespace AppBundle\Form;
 
-use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Doctrine\ORM\EntityRepository;
 
@@ -18,18 +17,14 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 
 
-use AppBundle\Entity\Department;
 use AppBundle\Entity\WebsiteMail;
-use AppBundle\Entity\WebsiteReferer;
 
 class WebsiteMailType extends AbstractType
 {
-    protected $translator;
     protected $requestStack;
 
-    public function __construct(TranslatorInterface $translator,RequestStack $requestStack){
+    public function __construct(RequestStack $requestStack){
 
-        $this->translator = $translator;
         $this->requestStack = $requestStack;
     }
 
@@ -42,69 +37,35 @@ class WebsiteMailType extends AbstractType
         ->add('firstname',TextType::class,array(
             "attr"=>array(
                 "class"=>"form-control-sm",
-                "placeholder"=>$this->translator->trans("Votre nom",array(),"contact")
             ),
+            "label"=>false,
         ))
         ->add('lastname',TextType::class,array(
             "attr"=>array(
                 "class"=>"form-control-sm",
-                "placeholder"=>$this->translator->trans("Votre prénom",array(),"contact")
             ),
+            "label"=>false,
         ))
         ->add('email',EmailType::class,array(
             "attr"=>array(
                 "class"=>"form-control-sm",
-                "placeholder"=>$this->translator->trans("Votre adresse email",array(),"contact")
             ),
+            "label"=>false,
         ))
         ->add('subject',TextType::class,array(
             "attr"=>array(
                 "class"=>"form-control-sm",
-                "placeholder"=>$this->translator->trans("Objet",array(),"contact")
             ),
+            "label"=>false,
         ))
         ->add('message',TextareaType::class,array(
             "attr"=>array(
                 "class"=>"form-control-sm",
                 'style'=>'min-height:170px;resize:none',
-                "placeholder"=>$this->translator->trans("Exprimez-vous",array(),"contact")
             ),
+            "label"=>false,
         ))
-        ->add('department',EntityType::class,array(
-            "attr"=>array(
-                "class"=>"form-control-sm custom-select"
-            ),
-            "required"=>false,
-            "placeholder"=>$this->translator->trans("Webmaster",array(),"contact"),
-            "class"=>Department::class,
-            "choice_label"=>function($department,$key,$index){
-                return ucwords($department->getName());
-            },
-            'group_by' => function($value, $key, $index) {
-                return strtoupper($value->getSlug()[0]);
-            },
-            "choice_value"=>"slug",
-            "label"=>$this->translator->trans("Service à contacter",array(),"contact")
-        ))
-        ->add('referer',EntityType::class,array(
-            "expanded"=>true,
-            "attr"=>array(
-                "class"=>"form-control-sm"
-            ),
-            "placeholder"=>$this->translator->trans("referer.message",array(),"contact"),
-            "class"=>WebsiteReferer::class,
-            "choice_label"=>function($referer,$key,$index){
-                return ucfirst($referer->getName());
-            },
-            "label"=>$this->translator->trans("referer.message",array(),"contact"),
-            'choice_attr' => function($value, $key, $index) {
-                $attrs = [];
-                if($value->getId() == 6){
-                    $attrs["checked"] = "checked";
-                }
-                return $attrs;
-            },
-        ));
+       ;
 
     }/**
      * {@inheritdoc}
@@ -121,7 +82,7 @@ class WebsiteMailType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_websitemail';
+        return null;
     }
 
 

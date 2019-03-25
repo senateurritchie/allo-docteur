@@ -519,6 +519,7 @@ var AdminManager = AdminManager || {};
             $('body').on("click",".has-collection .collection-add",
                 e=>{
                     e.preventDefault();
+
                     var obj = $(e.target);
                     var parent = obj.parent();
                     var parent_collection = obj.parents(".has-collection:first");

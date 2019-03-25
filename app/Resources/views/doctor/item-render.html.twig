@@ -13,28 +13,36 @@
             </a>
         </figure>
         
-        {% if item.user.userType.slug == 'doctor' %}
-            <small>
-                {{ item.job.name|lower|title}} &mdash; {{ item.doctorType.name|lower|title}}      
-            </small>
-        {% endif %}
+
 
         <h3>
             {% if item.user.userType.slug == 'doctor' %}
                 Dr.
+            
             {% elseif item.user.userType.slug == 'hospital' %}
 
             {% endif %} 
 
             {{ item.user.username|lower|title }}
         </h3>
-
+        
         <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur facere, aliquid dolore fugit ullam, harum reiciendis. Accusamus, voluptatum ipsam ad repellendus accusantium nulla blanditiis optio deserunt. Repellat quo, nihil illum.
+        {% if item.user.userType.slug == 'doctor' %}
+            <small>
+                {# {{ item.job.name|lower|title}} &mdash; {{ item.doctorType.name|lower|title}}   #}
+                {% if item.doctorType.name == 'Professeur' %}PROFESSEUR {% else %} {% endif %} 
+                
+                {% if item.job.name != 'Medecin' %} &mdash; {{ item.job.name|lower|title}} {% else %} {% endif %}
+            </small>
+        {% endif %}
         </p>
-
+        
+        <p style="padding-top:5px !important;">
+            {{ item.user.aboutMe }}
+        </p>
+        
         <div>
-            <small>Spécialités</small>
+            <small>Spécialité(s)</small>
             {% for s in item.user.specializations %}
                 <span class="badge badge-danger">
                     {{ s.specialization.name }}
@@ -48,7 +56,7 @@
             <br>
 
             <div>
-                <small>Cliniques</small>
+                <small>Centre(s) de santé</small>
                 {% for d in item.clinics %}
                     <span class="badge badge-danger">
                         {{ d.clinic.user.username|lower|title }}
@@ -57,6 +65,16 @@
                     <small style="font-weight:normal">pas disponible</small>
                 {% endfor %}
             </div>
+
+            <br>
+
+            <div>
+                <small>Téléphone</small>
+                <a href="tel:{{ item.user.phone }}">
+                    <i class="fas fa-phone-square"></i> {{ item.user.phone }}
+                </a>
+            </div>
+
 
         {% elseif item.user.userType.slug == 'hospital' %}
             <br>
@@ -113,11 +131,11 @@
                     {{ item.user.city.name|lower|title }}
                 </li>
 
-                <li>
+                {#<li>
                     <a href="{{ path('doctor_index',{'slug':item.user.slug}) }}">
                         Afficher le profil
                     </a>
-                </li>
+                </li>#}
             </ul>
         {% endif %}
     </div>

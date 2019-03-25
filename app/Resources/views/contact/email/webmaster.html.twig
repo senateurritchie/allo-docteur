@@ -5,11 +5,11 @@
 {% endblock %}
 
 {% block message %}
-	<h3><center>Service {{ mail.department.name|lower|title }} </center></h3>
+	<h3><center>Service Commercial </center></h3>
 	&nbsp;
 
 	<p>
-		Un nouveau message vous est adressé de la part d'un visiteur du site principal de Côte Ouest Audiovisuel.
+		Un nouveau message vous est adressé de la part d'un visiteur de votre site web.
 	</p>
 
 	&nbsp;
@@ -45,18 +45,6 @@
 
 					<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
 						{{ mail.lastname }}
-					</td>
-				</tr>
-
-				<tr>
-                    <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px;word-break: normal">
-						<strong>Provenance</strong>
-					</td>
-
-					<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
-						{{ mail.referer.name }}
-						<br>
-						{{ mail.refererMessage }}
 					</td>
 				</tr>
 

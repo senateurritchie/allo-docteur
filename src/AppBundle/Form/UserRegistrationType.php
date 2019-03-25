@@ -16,6 +16,7 @@ use AppBundle\Entity\City;
 use AppBundle\Form\DoctorSpecializationType;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -46,6 +47,7 @@ class UserRegistrationType extends AbstractType
         ->add('firstname',TextType::class)
         ->add('lastname',TextType::class)
         ->add('email',EmailType::class)
+        ->add('aboutMe',TextareaType::class)
         ->add('phone',TextType::class)
         ->add('city',EntityType::class,array(
             "class"=>City::class,
